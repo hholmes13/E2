@@ -40,10 +40,13 @@ int main(int argc, char** argv) {
     int hours_input;
     
     student_node_type students_head_node;
+    student_node_type student_node;
 
     course_node_type courses_head_node;
+    course_node_type course_node;
     
     course_student_node_type courses_students_head_node;
+    course_student_node_type course_student_node;
    
     
     import_students_node("Students.csv", &students_head_node);
@@ -59,7 +62,7 @@ int main(int argc, char** argv) {
     } 
     
 
-    if (argc < 21) {
+    if (argc < 1) {
         // help implicitly called.
         help();
     } else {
@@ -67,16 +70,20 @@ int main(int argc, char** argv) {
         if(strcmp(argv[1],"/h") == 0 ){
             help();
             
-        } else if(strcmp(argv[1], "/students") == 0) {
+        } else if(strcmp(argv[1], "/student") == 0) {
             //student mode
             
             if((strcmp(argv[2],"/display") == 0) && (argc == 4) ){
-               strncpy(blazer_id_input,argv[3],strlen(argv[3]));
-               printf("%s\n", blazer_id_input);
-               printf("%s\n", argv[3]);
+               //(blazer_id_input,argv[3],strlen(argv[3]));
                 //blazer_id_input = argv[3];
                 // display a particular student
-                // need to search through all students to see if the studet->blazer_id matches the input blazer id
+                // search through all students to see if the studet->blazer_id matches the input blazer id
+                
+                if((isa_student_node(&students_head_node, argv[3])) == 1){
+                    //student is in list
+                }else{
+                    printf("No student with this blazerID exists\n");
+                }
                
                
             } else if((strcmp(argv[2],"/display_all") == 0) && (argc == 3) ){
@@ -84,23 +91,42 @@ int main(int argc, char** argv) {
                display_students_node(&students_head_node);
                
             } else if((strcmp(argv[2],"/isa") == 0) && (argc == 4) ){
-                strcpy(blazer_id_input, argv[3]);
+                //(blazer_id_input, argv[3]);
                 // check to see if student is in student list
                 // if yes return "true"
                 // if no return "false"
+                
+                if((isa_student_node(&students_head_node, argv[3])) == 1){
+                    printf("true");
+                }else{
+                    printf("false");
+                }
                
             } else if((strcmp(argv[2],"/add") == 0) && (argc == 7) ){
-                strcpy( first_name_input, argv[3]);
-                strcpy( middle_initial_input, argv[4]);
-                strcpy( last_name_input, argv[5]);
-                strcpy(blazer_id_input, argv[6]);
+                //( first_name_input, argv[3]);
+                //( middle_initial_input, argv[4]);
+                //( last_name_input, argv[5]);
+                //(blazer_id_input, argv[6]);
               
                 // check to see if student is in student list
                 // if yes return error that says they are on the list
                 // if no add them to the list
+                
+                strcpy(student_node.first_name, argv[3]);
+                strcpy(student_node.middle_initial, argv[4]);
+                strcpy(student_node.last_name, argv[5]);
+                strcpy(student_node.blazer_id, argv[6]);
+                
+                if((isa_student_all_fields_node(&students_head_node, &student_node)) == 1){
+                    printf("Student Exists in database\n");
+                }else{
+                    add_student_node(&students_head_node, &student_node);
+                    display_students_node(&students_head_node);
+                    export_students_node("Students_new.csv", &students_head_node);
+                }
                
             } else if((strcmp(argv[2],"/remove") == 0) && (argc == 4) ){\
-                strcpy(blazer_id_input, argv[3]);
+                //(blazer_id_input, argv[3]);
                 // check to see if student is in student list
                 // if yes return remove them
                 // if no, send error that theyr not on the list
@@ -109,11 +135,11 @@ int main(int argc, char** argv) {
                 help();
             }
             
-        } else if(strcmp(argv[1], "/courses") == 0) {
+        } else if(strcmp(argv[1], "/course") == 0) {
             //course mode
             
             if((strcmp(argv[2],"/display") == 0) && (argc == 4) ){
-                strcpy(crn_input, argv[3]);
+                //(crn_input, argv[3]);
                 // display a particular student
                 // need to search through all students to see if the studet->blazer_id matches the input blazer id
                 
@@ -122,24 +148,24 @@ int main(int argc, char** argv) {
                 display_courses_node(&courses_head_node);
                
             } else if((strcmp(argv[2],"/isa") == 0) && (argc == 4) ){
-                strcpy(crn_input, argv[3]);
+                //(crn_input, argv[3]);
                 // check to see if student is in student list
                 // if yes return "true"
                 // if no return "false"
                
             } else if((strcmp(argv[2],"/add") == 0) && (argc == 7 )){
-                strcpy(crn_input, argv[3]);
-                strcpy(department_input, argv[4]);
-                strcpy(number_input, argv[5]);
-                strcpy(title_input, argv[6]);
-                strtod(argv[7],NULL);
+                //(crn_input, argv[3]);
+                //(department_input, argv[4]);
+                //(number_input, argv[5]);
+                //(title_input, argv[6]);
+                hours_input = atoi(argv[7]);
                 
                 // check to see if student is in student list
                 // if yes return error that says they are on the list
                 // if no add them to the list
                
             } else if((strcmp(argv[2],"/remove") == 0) && (argc == 4) ){
-                strcpy(crn_input, argv[3]);
+                // crn_input, argv[3]);
                 // check to see if student is in student list
                 // if yes return remove them
                 // if no, send error that theyr not on the list
@@ -152,8 +178,8 @@ int main(int argc, char** argv) {
             //course_student mode
             
             if((strcmp(argv[2],"/display") == 0) && (argc == 5) ){
-                strcpy(crn_input, argv[3]);
-                strcpy(blazer_id_input, argv[4]);
+                //(crn_input, argv[3]);
+                //(blazer_id_input, argv[4]);
                 // display a particular student
                 // need to search through all students to see if the studet->blazer_id matches the input blazer id
                 
@@ -161,22 +187,22 @@ int main(int argc, char** argv) {
                 // display all students
                
             } else if((strcmp(argv[2],"/isa") == 0) && (argc == 5) ){
-                strcpy(crn_input, argv[3]);
-                strcpy(blazer_id_input, argv[4]);
+                //(crn_input, argv[3]);
+                //(blazer_id_input, argv[4]);
                 // check to see if student is in student list
                 // if yes return "true"
                 // if no return "false"
                
             } else if((strcmp(argv[2],"/add") == 0) && (argc == 5) ){
-                strcpy(crn_input, argv[3]);
-                strcpy(blazer_id_input, argv[4]);
+               //(crn_input, argv[3]);
+                //(blazer_id_input, argv[4]);
                 // check to see if student is in student list
                 // if yes return error that says they are on the list
                 // if no add them to the list
                
             } else if((strcmp(argv[1],"/remove") == 0) && (argc == 4) ){
-                strcpy(crn_input, argv[2]);
-                strcpy(blazer_id_input, argv[3]);
+                //(crn_input, argv[2]);
+                //(blazer_id_input, argv[3]);
                 // check to see if student is in student list
                 // if yes return remove them
                 // if no, send error that theyr not on the list
