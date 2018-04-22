@@ -39,14 +39,14 @@ int main(int argc, char** argv) {
     char title_input[50];
     int hours_input;
     
-/*    student_node_type student_head_node;
+    student_node_type student_head_node;
     course_node_type course_head_node;
     course_student_node_type course_student_head_node;
     
     import_students_node("Students.csv", &student_head_node);
     import_courses_node("Courses.csv", &course_head_node);
     import_courses_students_node("Courses_Students.csv", &course_student_head_node);
-*/
+
 
     
 
