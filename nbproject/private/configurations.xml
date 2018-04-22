@@ -17,9 +17,9 @@
         </gdb_signals>
         <gdb_options>
           <DebugOptions>
-            <option name="debug_command" value="e2.exe /h"/>
+            <option name="debug_command" value="e2.exe /students"/>
             <option name="debug_dir"
-                    value="C:\Users\hholmes\Documents\EE 233-Local (4-21 1524)\E2\E2\dist\Debug\MinGW-Windows"/>
+                    value="C:\Users\hholmes\Documents\EE 233-Local (4-21 2113)\New Folder\E2\dist\Debug\MinGW-Windows"/>
           </DebugOptions>
         </gdb_options>
         <gdb_buildfirst gdb_buildfirst_overriden="false" gdb_buildfirst_old="false"/>

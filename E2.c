@@ -39,13 +39,17 @@ int main(int argc, char** argv) {
     char title_input[50];
     int hours_input;
     
-    student_node_type student_head_node;
-    course_node_type course_head_node;
-    course_student_node_type course_student_head_node;
+    student_node_type students_head_node;
+
+    course_node_type courses_head_node;
     
-    import_students_node("Students.csv", &student_head_node);
-    import_courses_node("Courses.csv", &course_head_node);
-    import_courses_students_node("Courses_Students.csv", &course_student_head_node);
+    course_student_node_type courses_students_head_node;
+   
+    
+    import_students_node("Students.csv", &students_head_node);
+    import_courses_node("Courses.csv", &courses_head_node);
+    import_courses_students_node("Courses_Students.csv", &courses_students_head_node);
+
 
 
     
@@ -55,7 +59,7 @@ int main(int argc, char** argv) {
     } 
     
 
-    if (argc < 2) {
+    if (argc < 21) {
         // help implicitly called.
         help();
     } else {
@@ -63,18 +67,21 @@ int main(int argc, char** argv) {
         if(strcmp(argv[1],"/h") == 0 ){
             help();
             
-        } else if(strcmp(argv[1], "/student") == 0) {
+        } else if(strcmp(argv[1], "/students") == 0) {
             //student mode
             
-            if((strcmp(argv[2],"/display") == 0) && (argc == 3) ){
-               strcpy(blazer_id_input,argv[2]);
+            if((strcmp(argv[2],"/display") == 0) && (argc == 4) ){
+               strncpy(blazer_id_input,argv[3],strlen(argv[3]));
+               printf("%s\n", blazer_id_input);
+               printf("%s\n", argv[3]);
+                //blazer_id_input = argv[3];
                 // display a particular student
                 // need to search through all students to see if the studet->blazer_id matches the input blazer id
                
                
             } else if((strcmp(argv[2],"/display_all") == 0) && (argc == 3) ){
                 // display all students
-               //display_students_node(&student_head_node);
+               display_students_node(&students_head_node);
                
             } else if((strcmp(argv[2],"/isa") == 0) && (argc == 4) ){
                 strcpy(blazer_id_input, argv[3]);
@@ -102,7 +109,7 @@ int main(int argc, char** argv) {
                 help();
             }
             
-        } else if(strcmp(argv[1], "/course") == 0) {
+        } else if(strcmp(argv[1], "/courses") == 0) {
             //course mode
             
             if((strcmp(argv[2],"/display") == 0) && (argc == 4) ){
@@ -112,6 +119,7 @@ int main(int argc, char** argv) {
                 
             } else if((strcmp(argv[2],"/display_all") == 0) && (argc == 3) ){
                 // display all students
+                display_courses_node(&courses_head_node);
                
             } else if((strcmp(argv[2],"/isa") == 0) && (argc == 4) ){
                 strcpy(crn_input, argv[3]);
